@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace administrateur</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img class="logo" id="logoImg" src="" alt="logo">
+    <h1>Espace administrateur</h1>
+    <button class="btn-primary muted" id="logoutBtn" style="width:auto; padding:10px 18px;">Déconnexion</button>
+  </div>
+</header>
+
+<main>
+  <div class="tabs">
+    <button data-tab="medicines" class="active">Mes médicaments</button>
+    <button data-tab="notifications">Notifications <span id="notifCount"></span></button>
+    <button data-tab="profile">Mon profil</button>
+  </div>
+
+  <!-- ===== TAB: MEDICINES ===== -->
+  <section id="tab-medicines">
+    <form class="panel" id="addForm">
+      <h2 id="formTitle">Ajouter un médicament</h2>
+      <input type="hidden" id="editId">
+
+      <label>Photo du médicament (prise directement, pas depuis internet)</label>
+      <input type="file" id="photoInput" accept="image/*" capture="environment">
+      <p style="color:#5c6b65; font-size:0.9em;">Laissez vide si vous modifiez et gardez la même photo.</p>
+
+      <label>Nom (Français)</label>
+      <input type="text" id="name_fr" required>
+      <label>الاسم (Arabe)</label>
+      <input type="text" id="name_ar">
+      <label>Name (English)</label>
+      <input type="text" id="name_en">
+
+      <label>Description / précisions (Français)</label>
+      <textarea id="description_fr" rows="2"></textarea>
+      <label>الوصف (Arabe)</label>
+      <textarea id="description_ar" rows="2"></textarea>
+      <label>Description (English)</label>
+      <textarea id="description_en" rows="2"></textarea>
+
+      <label>Votre commentaire (visible publiquement, ex: "Boîte neuve, jamais ouverte")</label>
+      <textarea id="comment" rows="2"></textarea>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="prescriptionRequired">
+        <label style="margin:0;">Ordonnance du médecin obligatoire pour ce médicament</label>
+      </div>
+
+      <button type="submit" class="btn-primary green" style="margin-top:20px;" id="submitBtn">Publier ce médicament</button>
+      <button type="button" class="btn-primary btn-secondary" style="margin-top:10px; display:none;" id="cancelEditBtn">Annuler la modification</button>
+      <p id="status"></p>
+    </form>
+
+    <h2>Vos médicaments publiés</h2>
+    <div id="myList"></div>
+  </section>
+
+  <!-- ===== TAB: NOTIFICATIONS ===== -->
+  <section id="tab-notifications" style="display:none;">
+    <div class="intro">
+      Ces personnes ont envoyé une ordonnance pour un de vos médicaments. Vérifiez d'abord
+      sur Messenger que vous avez bien reçu leur message (référence indiquée ci-dessous),
+      puis validez si le médicament a été donné ou non.
+    </div>
+    <div id="notifList"></div>
+  </section>
+
+  <!-- ===== TAB: PROFILE ===== -->
+  <section id="tab-profile" style="display:none;">
+    <form class="panel" id="profileForm">
+      <h2>Mon profil (affiché publiquement sur vos publications)</h2>
+      <label>Photo de profil</label>
+      <input type="file" id="avatarInput" accept="image/*">
+      <label>Nom affiché</label>
+      <input type="text" id="displayName" required>
+      <button type="submit" class="btn-primary green" style="margin-top:16px;">Enregistrer</button>
+      <p id="profileStatus"></p>
+    </form>
+  </section>
+</main>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

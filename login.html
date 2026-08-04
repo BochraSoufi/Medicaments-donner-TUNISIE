@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <img class="logo" id="logoImg" src="" alt="logo">
+    <h1>Connexion administrateur</h1>
+  </div>
+</header>
+<main>
+  <div class="panel login-box">
+    <p>Entrez l'email et le mot de passe qui vous ont été donnés pour gérer les médicaments.</p>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="votre@email.com">
+    <label>Mot de passe</label>
+    <input type="password" id="password">
+    <button class="btn-primary green" id="loginBtn" style="margin-top:16px;">Se connecter</button>
+    <p id="status" style="color:#b5432a; font-weight:bold;"></p>
+    <p><a href="#" id="forgotLink">Mot de passe oublié ?</a></p>
+  </div>
+</main>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+  const sb = supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
+  document.getElementById("logoImg").src = CONFIG.logoPath;
+
+  sb.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = "admin.html";
+  });
+
+  document.getElementById("loginBtn").onclick = async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const statusEl = document.getElementById("status");
+    statusEl.textContent = "Connexion en cours...";
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      statusEl.textContent = "Erreur : email ou mot de passe incorrect.";
+      return;
+    }
+    window.location.href = "admin.html";
+  };
+
+  document.getElementById("forgotLink").onclick = async (e) => {
+    e.preventDefault();
+    const email = prompt("Entrez votre email pour recevoir un lien de réinitialisation :");
+    if (!email) return;
+    const { error } = await sb.auth.resetPasswordForEmail(email);
+    document.getElementById("status").style.color = "#1f6f52";
+    document.getElementById("status").textContent = error
+      ? "Erreur : " + error.message
+      : "Email envoyé si ce compte existe. Vérifiez votre boîte mail.";
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+:root {
+  --green: #1f6f52;
+  --green-dark: #14503b;
+  --gold: #c99a3b;
+  --bg: #f4f7f5;
+  --card-bg: #ffffff;
+  --text: #202924;
+  --muted: #5c6b65;
+  --warn: #b5432a;
+  --radius: 16px;
+  --shadow: 0 4px 16px rgba(20, 60, 45, 0.10);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+[dir="rtl"] body { font-family: "Segoe UI", "Traditional Arabic", Tahoma, Arial, sans-serif; }
+
+header {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  color: white;
+  padding: 18px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.header-inner img.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: white;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.lang-switch {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.lang-switch button {
+  padding: 9px 16px;
+  font-size: 0.95em;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.lang-switch button.active {
+  background: white;
+  color: var(--green-dark);
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.intro {
+  background: #eaf3ee;
+  border: 1px solid #cfe4d9;
+  padding: 16px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  font-size: 1.02em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.card img.photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: #eee;
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.poster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+.poster img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ddd;
+}
+
+.card h2 { margin: 0; font-size: 1.25em; }
+.card p { margin: 0; color: var(--muted); }
+.card .comment { font-style: italic; color: var(--green-dark); }
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.88em;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.badge.required { background: #fbe4de; color: var(--warn); }
+.badge.free { background: #e2f2e9; color: var(--green-dark); }
+
+.btn-msg, .btn-primary {
+  margin-top: auto;
+  display: block;
+  text-align: center;
+  background: #0084ff;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 999px;
+  font-size: 1.05em;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-primary.green { background: var(--green); }
+.btn-primary.danger { background: var(--warn); }
+.btn-primary.muted { background: #8a978f; }
+
+.empty-state { text-align: center; color: var(--muted); padding: 60px 20px; font-size: 1.1em; }
+
+footer { text-align: center; color: var(--muted); padding: 30px 16px; font-size: 0.95em; }
+footer a { color: var(--green-dark); }
+
+/* ---- Modal ---- */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; z-index: 100;
+}
+.modal-box {
+  background: white; border-radius: var(--radius); padding: 24px;
+  max-width: 480px; width: 100%; box-shadow: var(--shadow);
+}
+.modal-box h3 { margin-top: 0; }
+.modal-box input[type=file], .modal-box textarea {
+  width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 1em; margin-top: 8px;
+}
+.modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+.modal-actions button { flex: 1; }
+.btn-secondary { background: #e6e9e7; color: var(--text); }
+
+/* ---- Admin ---- */
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.tabs button {
+  padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green);
+  background: white; color: var(--green); font-weight: bold; cursor: pointer;
+}
+.tabs button.active { background: var(--green); color: white; }
+
+form.panel, .panel {
+  background: white; padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px;
+}
+form.panel label { display: block; font-weight: bold; margin-top: 14px; margin-bottom: 6px; }
+form.panel input[type=text], form.panel textarea, form.panel input[type=file], form.panel input[type=password], form.panel input[type=email] {
+  width: 100%; padding: 10px; font-size: 1em; border-radius: 8px; border: 1px solid #ccc;
+}
+.checkbox-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.checkbox-row input { width: 22px; height: 22px; }
+
+.admin-item {
+  background: white; padding: 16px; border-radius: 12px; margin-bottom: 14px; box-shadow: var(--shadow);
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+}
+.admin-item img.thumb { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; }
+.admin-item .info { flex: 1; min-width: 180px; }
+.admin-item .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-item .actions button {
+  padding: 9px 14px; border-radius: 999px; border: none; font-weight: bold; cursor: pointer;
+}
+
+.status-pill { padding: 4px 10px; border-radius: 999px; font-size: 0.85em; font-weight: bold; }
+.status-available { background: #e2f2e9; color: var(--green-dark); }
+.status-pending_review { background: #fff3d6; color: #8a6d1f; }
+.status-given { background: #eee; color: #666; }
+
+.notif-box img.prescription-preview {
+  max-width: 220px; border-radius: 10px; margin-top: 10px; display: block;
+}
+
+.login-box { max-width: 420px; margin: 60px auto; }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Médicaments à Donner TUNISIE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img class="logo" id="logoImg" src="" alt="logo">
+    <h1 id="siteTitle">Médicaments à Donner TUNISIE</h1>
+    <div style="width:52px"></div>
+    <div class="lang-switch">
+      <button data-lang="fr" class="active">Français</button>
+      <button data-lang="ar">العربية</button>
+      <button data-lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="intro" id="introText"></div>
+  <div id="grid" class="grid"></div>
+  <div id="emptyState" class="empty-state" style="display:none;"></div>
+</main>
+
+<footer id="footerText"></footer>
+
+<div id="modalRoot"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
