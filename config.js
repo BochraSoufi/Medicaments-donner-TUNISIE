@@ -3,11 +3,11 @@
 // ============================================================
 const CONFIG = {
   // Depuis Supabase → Project Settings → API
-  supabaseUrl: "https://YOUR-PROJECT-REF.supabase.co",
-  supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY_HERE",
+  supabaseUrl: "https://aahehjzfgizcfdsoltuy.supabase.co",
+  supabaseAnonKey: "sb_publishable_UiNJhwb040D99Yelyb4i6Q_75leC-wJ",
 
   // Nom d'utilisateur de votre PAGE Facebook (après facebook.com/)
-  facebookPageUsername: "YOUR_PAGE_USERNAME_HERE",
+  facebookPageUsername: "https://www.facebook.com/groups/967688386429440",
 
   siteName: {
     fr: "Médicaments à Donner TUNISIE",
