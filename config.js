@@ -7,7 +7,7 @@ const CONFIG = {
   supabaseAnonKey: "sb_publishable_UiNJhwb040D99Yelyb4i6Q_75leC-wJ",
 
   // Nom d'utilisateur de votre PAGE Facebook (après facebook.com/)
-  facebookPageUsername: "https://www.facebook.com/groups/967688386429440",
+  facebookPageUsername: "groups/967688386429440",
 
   siteName: {
     fr: "Médicaments à Donner TUNISIE",
