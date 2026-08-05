@@ -74,8 +74,18 @@ let medicines = [];
 
 document.getElementById("logoImg").src = CONFIG.logoPath;
 
-function buildMessengerLink(text) {
-  return `https://m.me/${CONFIG.facebookPageUsername}?text=${encodeURIComponent(text)}`;
+function normalizeMessengerUsername(username) {
+  if (!username) return "";
+  let value = username.trim();
+  value = value.replace(/^https?:\/\/(www\.)?m\.me\//i, "");
+  value = value.replace(/^https?:\/\/(www\.)?facebook\.com\//i, "");
+  value = value.replace(/^@/, "");
+  return value;
+}
+
+function buildMessengerLink(text, username) {
+  const target = normalizeMessengerUsername(username) || CONFIG.facebookPageUsername;
+  return `https://m.me/${encodeURIComponent(target)}?text=${encodeURIComponent(text)}`;
 }
 
 function closeModal() {
@@ -122,6 +132,7 @@ function openPrescriptionModal(medicine) {
       if (error) throw error;
 
       const ref = data.id.slice(0, 8);
+      const messengerTarget = medicine.profiles?.messenger_username || CONFIG.facebookPageUsername;
       const msgText = `${name} — ref:${ref}`;
       document.getElementById("modalRoot").innerHTML = `
         <div class="modal-overlay" id="overlay2">
@@ -129,7 +140,7 @@ function openPrescriptionModal(medicine) {
             <h3>${t.doneTitle}</h3>
             <p>${t.doneDesc} <strong>${ref}</strong></p>
             <p>${t.doneNext}</p>
-            <a class="btn-msg" href="${buildMessengerLink(msgText)}" target="_blank" rel="noopener">${t.openMessenger}</a>
+            <a class="btn-msg" href="${buildMessengerLink(msgText, messengerTarget)}" target="_blank" rel="noopener">${t.openMessenger}</a>
             <div class="modal-actions">
               <button class="btn-primary btn-secondary" id="closeDone">${t.close}</button>
             </div>
@@ -168,6 +179,7 @@ function render() {
     const name = m["name_" + currentLang] || m.name_fr;
     const desc = m["description_" + currentLang] || m.description_fr;
     const profile = m.profiles || {};
+    const messengerTarget = profile.messenger_username || CONFIG.facebookPageUsername;
 
     const card = document.createElement("div");
     card.className = "card";
@@ -195,7 +207,7 @@ function render() {
       btn.onclick = () => openPrescriptionModal(m);
     } else {
       btn.textContent = t.needBtnFree;
-      btn.href = buildMessengerLink(name);
+      btn.href = buildMessengerLink(name, messengerTarget);
       btn.target = "_blank";
       btn.rel = "noopener";
     }
@@ -207,7 +219,7 @@ function render() {
 async function loadMedicines() {
   const { data, error } = await sb
     .from("medicines")
-    .select("*, profiles(display_name, avatar_url)")
+    .select("*, profiles(display_name, avatar_url, messenger_username)")
     .eq("status", "available")
     .order("created_at", { ascending: false });
 
