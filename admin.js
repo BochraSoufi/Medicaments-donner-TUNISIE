@@ -21,7 +21,8 @@ async function ensureProfile() {
   if (!data) {
     await sb.from("profiles").insert({
       id: currentUser.id,
-      display_name: currentUser.email.split("@")[0]
+      display_name: currentUser.email.split("@")[0],
+      messenger_username: ""
     });
   }
 }
@@ -45,7 +46,10 @@ document.querySelectorAll(".tabs button").forEach(btn => {
 // ---------- PROFILE ----------
 async function loadProfileForm() {
   const { data } = await sb.from("profiles").select("*").eq("id", currentUser.id).single();
-  if (data) document.getElementById("displayName").value = data.display_name || "";
+  if (data) {
+    document.getElementById("displayName").value = data.display_name || "";
+    document.getElementById("messengerUsername").value = data.messenger_username || "";
+  }
 }
 
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
@@ -53,7 +57,10 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
   const statusEl = document.getElementById("profileStatus");
   statusEl.textContent = "Enregistrement...";
   try {
-    const updates = { display_name: document.getElementById("displayName").value.trim() };
+    const updates = {
+      display_name: document.getElementById("displayName").value.trim(),
+      messenger_username: document.getElementById("messengerUsername").value.trim()
+    };
     const file = document.getElementById("avatarInput").files[0];
     if (file) {
       const path = `${currentUser.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "")}`;
